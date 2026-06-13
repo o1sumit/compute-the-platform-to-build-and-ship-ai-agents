@@ -50,16 +50,16 @@ export function TestimonialsSection() {
 
         <RevealGroup isVisible={isVisible} className="grid lg:grid-cols-12 gap-6">
           <RevealItem className="lg:col-span-4" staggerIndex={0}>
-            <div className="reveal-card-surface flex flex-col gap-2">
+            <div className="reveal-card-surface bg-neutral-500/10 dark:bg-neutral-500/5 p-2 rounded-2xl border border-neutral-200/30 dark:border-neutral-800/30 backdrop-blur-md flex flex-col gap-1.5">
               {personas.map((persona, idx) => (
                 <button
                   key={persona.name}
                   type="button"
                   onClick={() => setActiveIndex(idx)}
-                  className={`flex items-center gap-3 text-left p-4 rounded-xl transition-all w-full ${
+                  className={`flex items-center gap-3 text-left p-3.5 rounded-xl text-sm transition-all w-full cursor-pointer ${
                     idx === activeIndex
-                      ? "surface-card-highlight text-foreground"
-                      : "surface-card text-muted-foreground hover:text-foreground"
+                      ? "bg-white dark:bg-neutral-800 text-foreground shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-neutral-200/20 dark:border-neutral-700/20 font-semibold"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                   }`}
                 >
                   <IconBadge icon={UserRound} variant={idx === activeIndex ? "highlight" : "muted"} size="sm" className="!transform-none" />

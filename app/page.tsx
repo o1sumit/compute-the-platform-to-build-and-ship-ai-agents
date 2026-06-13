@@ -13,6 +13,7 @@ import { SecuritySection } from "@/components/landing/security-section";
 import { DevelopersSection } from "@/components/landing/developers-section";
 import { ComparisonSection } from "@/components/landing/comparison-section";
 import { PricingSection } from "@/components/landing/pricing-section";
+import { RealTestimonialsSection } from "@/components/landing/real-testimonials";
 import { FaqSection } from "@/components/landing/faq-section";
 import { CtaSection } from "@/components/landing/cta-section";
 import { FooterSection } from "@/components/landing/footer-section";
@@ -36,6 +37,7 @@ export default function Home() {
         <DevelopersSection />
         <ComparisonSection />
         <PricingSection />
+        <RealTestimonialsSection />
         <FaqSection />
         <CtaSection />
       </div>

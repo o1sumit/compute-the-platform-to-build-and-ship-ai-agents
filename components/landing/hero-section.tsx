@@ -7,30 +7,15 @@ import { heroStatAccents } from "@/lib/landing-accents";
 import { IconBadge } from "@/components/landing/icon-badge";
 import { RevealItem, RevealTextLine } from "@/components/landing/use-section-reveal";
 import { GenerativeArtScene } from "@/components/ui/anomalous-matter-hero";
+import VaporizeTextCycle, { Tag } from "@/components/ui/vapour-text-effect";
 
 const statIcons = [FlaskConical, Clock3, MessagesSquare];
 
-function RotatingWord({ word }: { word: string }) {
-  return (
-    <span key={word} className="hero-accent word-fade-in">
-      {word}
-    </span>
-  );
-}
-
 export function HeroSection() {
-  const [wordIndex, setWordIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % hero.rotatingWords.length);
-    }, 2800);
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -54,20 +39,38 @@ export function HeroSection() {
           <RevealTextLine
             immediate
             staggerIndex={0}
-            className="mb-8 inline-flex items-center gap-3 text-sm font-mono text-foreground/55 dark:text-white/55 tracking-wide uppercase"
+            className="mb-8 text-sm font-mono text-foreground/55 dark:text-white/55 tracking-wide uppercase"
           >
-            <IconBadge icon={FlaskConical} variant="hero" tone="coral" size="sm" />
-            {hero.eyebrow}
+            <span className="inline-flex items-center gap-4">
+              <IconBadge icon={FlaskConical} variant="hero" tone="coral" size="sm" />
+              <span>{hero.eyebrow}</span>
+            </span>
           </RevealTextLine>
 
           <h1 className="mb-12 text-left text-[clamp(2rem,6vw,5.5rem)] font-display leading-[0.95] tracking-tight text-foreground dark:text-white">
             <RevealTextLine immediate staggerIndex={1} className="text-foreground dark:text-white">
               {hero.headlineLine1}
             </RevealTextLine>
-            <RevealTextLine immediate staggerIndex={2} className="mt-1 text-foreground dark:text-white">
-              {hero.headlineLine2Prefix}{" "}
-              <span className="relative inline-block">
-                <RotatingWord word={hero.rotatingWords[wordIndex]} />
+            <RevealTextLine immediate staggerIndex={2} className="mt-1 text-foreground dark:text-white flex items-center">
+              <span>{hero.headlineLine2Prefix}</span>&nbsp;
+              <span className="relative inline-block w-[600px] h-[1.5em] align-middle mt-2">
+                <VaporizeTextCycle
+                  texts={hero.rotatingWords}
+                  font={{
+                    fontFamily: "'Instrument Serif', serif",
+                    fontSize: "88px",
+                    fontWeight: 400
+                  }}
+                  color="#F07167"
+                  direction="left-to-right"
+                  alignment="left"
+                  tag={Tag.SPAN}
+                  animation={{
+                    vaporizeDuration: 2,
+                    fadeInDuration: 1,
+                    waitDuration: 0.5
+                  }}
+                />
               </span>
             </RevealTextLine>
           </h1>
@@ -81,7 +84,7 @@ export function HeroSection() {
             const tone = heroStatAccents[index] ?? "blue";
             return (
               <RevealItem key={stat.label} staggerIndex={index + 3}>
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-4">
                   <IconBadge icon={StatIcon} variant="hero" tone={tone} size="sm" className="mt-0.5" />
                   <div className="flex flex-col gap-1">
                     <span className="text-2xl lg:text-3xl font-display text-foreground dark:text-white">{stat.value}</span>

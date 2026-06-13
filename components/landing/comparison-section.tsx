@@ -93,7 +93,7 @@ export function ComparisonSection() {
                             key={column}
                             className={`px-4 py-4 text-center text-xs font-bold uppercase tracking-wider ${
                               highlight
-                                ? "rounded-t-xl border border-b-0 border-primary/25 bg-gradient-to-b from-accent to-accent/50 text-primary"
+                                ? "rounded-t-xl border border-b-0 border-primary/25 bg-primary/10 dark:bg-primary/15 text-primary"
                                 : "text-muted-foreground"
                             }`}
                           >
@@ -117,7 +117,7 @@ export function ComparisonSection() {
                               key={`${row.label}-${colIndex}`}
                               className={`px-4 py-4 text-center align-middle ${
                                 highlight
-                                  ? `border-x border-primary/20 bg-accent/40 ${isLast ? "rounded-b-xl border-b border-primary/20" : ""}`
+                                  ? `border-x border-primary/20 bg-primary/5 dark:bg-primary/10 ${isLast ? "rounded-b-xl border-b border-primary/20" : ""}`
                                   : "border-t border-border"
                               }`}
                             >

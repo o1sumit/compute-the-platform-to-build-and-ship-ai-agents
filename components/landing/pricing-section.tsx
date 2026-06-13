@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check, Zap } from "lucide-react";
 import { pricingPlans } from "@/lib/peplocked-content";
 import { SectionBackdrop } from "@/components/landing/section-backdrop";
+import { PricingCard, ShaderCanvas } from "@/components/ui/animated-glassy-pricing";
 import {
   RevealGroup,
   RevealHeader,
@@ -18,6 +18,10 @@ export function PricingSection() {
 
   return (
     <section id="pricing" ref={ref} className="landing-section relative py-32 lg:py-40 overflow-hidden">
+      {/* WebGL Fluid Circle Shader Backdrop */}
+      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden opacity-30 dark:opacity-15">
+        <ShaderCanvas />
+      </div>
       <SectionBackdrop variant="orbs" />
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
         <RevealHeader isVisible={isVisible} className="grid lg:grid-cols-12 gap-8 mb-12">
@@ -46,7 +50,7 @@ export function PricingSection() {
                 onClick={() => setIsAnnual(false)}
                 className={`h-8 w-24 flex items-center justify-center text-sm rounded-full transition-all cursor-pointer ${
                   !isAnnual
-                    ? "bg-background text-foreground premium-shadow"
+                    ? "bg-background text-foreground premium-shadow font-medium"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -57,7 +61,7 @@ export function PricingSection() {
                 onClick={() => setIsAnnual(true)}
                 className={`h-8 w-24 flex items-center justify-center text-sm rounded-full transition-all cursor-pointer ${
                   isAnnual
-                    ? "bg-background text-foreground premium-shadow"
+                    ? "bg-background text-foreground premium-shadow font-medium"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -67,86 +71,32 @@ export function PricingSection() {
           </div>
         </RevealHeader>
 
-        <RevealGroup isVisible={isVisible} className="grid lg:grid-cols-3 gap-5">
+        <RevealGroup isVisible={isVisible} className="flex flex-col md:flex-row gap-8 md:gap-6 justify-center items-stretch w-full max-w-5xl mx-auto">
           {pricingPlans.map((plan, planIndex) => {
-            const planBody = (
-              <>
-                {plan.highlight && (
-                  <div className="absolute -top-4 left-8 right-8 flex justify-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 btn-pop text-xs font-mono uppercase tracking-widest rounded-full">
-                      <Zap className="w-3 h-3" />
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-
-                <div className="p-8 lg:p-10">
-                  <div className="mb-8 pb-8 border-b border-border">
-                    <h3 className="text-2xl lg:text-3xl font-display text-foreground">{plan.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
-                  </div>
-
-                  <div className="mb-4">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-5xl lg:text-6xl font-display text-foreground">
-                        ${isAnnual ? plan.price.annual : plan.price.monthly}
-                      </span>
-                      <span className="text-muted-foreground text-sm">/mo</span>
-                    </div>
-                    {plan.annualNote && (
-                      <p className="text-xs text-muted-foreground mt-2 font-mono">{plan.annualNote}</p>
-                    )}
-                    {plan.name === "Free" && (
-                      <p className="text-xs text-muted-foreground mt-2 font-mono">No card required</p>
-                    )}
-                  </div>
-
-                  <ul className="space-y-3 mb-10">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <a
-                    href="#pricing"
-                    className={`w-full py-3.5 flex items-center justify-center gap-2 text-sm font-medium rounded-xl transition-all group ${
-                      plan.highlight
-                        ? "btn-pop"
-                        : "border border-border text-foreground hover:bg-accent"
-                    }`}
-                  >
-                    {plan.cta}
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
-                </div>
-              </>
-            );
-
+            const priceVal = isAnnual ? plan.price.annual : plan.price.monthly;
             return (
-              <RevealItem key={plan.name} staggerIndex={planIndex}>
-                <div
-                  className={`reveal-card-surface relative rounded-2xl h-full ${
-                    plan.highlight
-                      ? "surface-card-highlight-pop lg:scale-[1.02] lg:z-10"
-                      : "surface-card-pop"
-                  }`}
-                >
-                  {plan.highlight ? (
-                    <div className="surface-card-highlight-inner h-full relative">{planBody}</div>
-                  ) : (
-                    planBody
-                  )}
-                </div>
+              <RevealItem key={plan.name} staggerIndex={planIndex} className="flex flex-1 justify-center">
+                <PricingCard
+                  planName={plan.name}
+                  description={plan.description}
+                  price={priceVal.toString()}
+                  features={plan.features}
+                  buttonText={plan.cta}
+                  isPopular={plan.highlight}
+                  buttonVariant={plan.highlight ? "primary" : "secondary"}
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.location.hash = "pricing";
+                    }
+                  }}
+                />
               </RevealItem>
             );
           })}
         </RevealGroup>
 
-        <div className="mt-12 text-center">
-          <a href="#pricing" className="text-sm text-primary hover:underline underline-offset-4">
+        <div className="mt-16 text-center">
+          <a href="#pricing" className="text-sm text-primary hover:underline underline-offset-4 font-mono">
             See full pricing →
           </a>
         </div>

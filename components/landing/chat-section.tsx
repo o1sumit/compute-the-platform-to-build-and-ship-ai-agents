@@ -17,6 +17,7 @@ import {
   FREE_CHAT_LIMIT,
   getChatResponse,
 } from "@/lib/peplocked-content";
+import { FloatingPaths } from "@/components/ui/background-paths";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -81,6 +82,11 @@ export function ChatSection() {
 
   return (
     <section id="chat" ref={ref} className="landing-section relative py-24 lg:py-32 overflow-hidden">
+      {/* Full Background SVG Floating Paths */}
+      <div className="absolute inset-0 -z-25 pointer-events-none overflow-hidden opacity-85 dark:opacity-60">
+        <FloatingPaths position={1} />
+        <FloatingPaths position={-1} />
+      </div>
       <SectionBackdrop variant="orbs" />
       <div className="relative z-10 max-w-[800px] mx-auto px-6 lg:px-12">
         <RevealHeader isVisible={isVisible} className="text-center mb-12">
@@ -104,6 +110,7 @@ export function ChatSection() {
 
         <RevealGroup isVisible={isVisible}>
           <RevealItem className="relative">
+
             {/* Background Liquid Glass Glow Orbs (placed behind card, z-0) */}
             <div className="absolute -inset-8 -z-10 pointer-events-none opacity-40 dark:opacity-30 blur-[60px]">
               <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-cyan-400/20 dark:bg-cyan-500/15" />
@@ -111,7 +118,7 @@ export function ChatSection() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full bg-rose-400/15 dark:bg-rose-500/10" />
             </div>
 
-            <div className="overflow-hidden rounded-3xl border border-t-white/35 border-l-white/25 border-b-black/15 border-r-black/15 dark:border-t-white/10 dark:border-l-white/10 dark:border-b-black/40 dark:border-r-black/40 bg-white/35 dark:bg-neutral-950/45 backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.4)] relative">
+            <div className="overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.4)] relative">
               <div className="overflow-hidden">
                 <div
                   ref={chatScrollRef}
@@ -141,9 +148,9 @@ export function ChatSection() {
                               type="button"
                               onClick={() => void sendMessage(s.prompt)}
                               disabled={isTyping || limitReached}
-                              className="bg-white/10 dark:bg-white/5 hover:bg-[#0071e3]/10 dark:hover:bg-[#0071e3]/15 border border-white/30 dark:border-white/5 hover:border-[#0071e3]/30 dark:hover:border-[#0071e3]/30 p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer group flex items-start gap-4 h-24 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+                              className="bg-neutral-50 dark:bg-neutral-900/50 hover:bg-primary/5 dark:hover:bg-primary/10 border border-neutral-200/50 dark:border-neutral-800/50 hover:border-primary/30 dark:hover:border-primary/30 p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer group flex items-start gap-4 h-24 shadow-xs"
                             >
-                              <div className="p-2 rounded-xl bg-white/20 dark:bg-neutral-800/30 text-neutral-500 dark:text-neutral-400 group-hover:text-[#0071e3] group-hover:bg-[#0071e3]/10 transition-colors shadow-sm">
+                              <div className="p-2 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 group-hover:text-primary group-hover:bg-primary/10 transition-colors shadow-xs">
                                 <IconComponent className="w-4 h-4" />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -178,8 +185,8 @@ export function ChatSection() {
                       <div
                         className={`max-w-[76%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed border ${
                           msg.role === "user"
-                            ? "bg-[#0071e3]/80 dark:bg-[#0071e3]/70 text-white rounded-tr-sm shadow-[0_4px_16px_rgba(0,113,227,0.2)] border-white/20 backdrop-blur-md font-medium"
-                            : "bg-white/40 dark:bg-white/5 text-neutral-900 dark:text-neutral-100 rounded-tl-sm shadow-[0_4px_12px_rgba(0,0,0,0.02)] border-white/30 dark:border-white/5 backdrop-blur-md"
+                            ? "bg-primary text-white rounded-tr-sm shadow-md shadow-primary/10 border-primary/20 font-medium"
+                            : "bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-tl-sm shadow-xs border-neutral-200/60 dark:border-neutral-800/60"
                         }`}
                       >
                         {msg.content}
@@ -193,7 +200,7 @@ export function ChatSection() {
                       <div className="w-7 h-7 rounded-full bg-neutral-200/40 dark:bg-neutral-800/40 flex items-center justify-center text-neutral-500 dark:text-neutral-400 mt-0.5 shrink-0">
                         <Bot className="w-4.5 h-4.5" />
                       </div>
-                      <div className="bg-white/40 dark:bg-white/5 border border-white/30 dark:border-white/5 rounded-2xl rounded-tl-sm px-4 py-3 shadow-xs backdrop-blur-md">
+                      <div className="bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/60 dark:border-neutral-800 rounded-2xl rounded-tl-sm px-4 py-3 shadow-xs">
                         <div className="flex gap-1 items-center h-4">
                           {[0, 1, 2].map((dot) => (
                             <span
@@ -212,19 +219,19 @@ export function ChatSection() {
                 <div className="border-t border-neutral-200/20 dark:border-neutral-800/20 p-4 bg-neutral-500/[0.02]">
                   {!limitReached && remaining < FREE_CHAT_LIMIT && messages.length > 0 && (
                     <p className="text-xs text-muted-foreground mb-3 font-mono flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-[#0071e3]" />
+                      <Sparkles className="w-3.5 h-3.5 text-primary" />
                       {remaining} free message{remaining === 1 ? "" : "s"} remaining
                     </p>
                   )}
                   {limitReached && (
-                    <div className="mb-3 rounded-xl border border-red-500/20 dark:border-red-500/10 bg-red-500/5 dark:bg-red-500/5 px-4 py-3 text-sm text-red-600 dark:text-red-400 backdrop-blur-md">
+                    <div className="mb-3 rounded-xl border border-red-200 dark:border-red-950 bg-red-50 dark:bg-red-950/20 px-4 py-3 text-sm text-red-600 dark:text-red-400">
                       {chatSection.limitBanner}{" "}
                       <a href="#pricing" className="underline underline-offset-2 text-primary font-medium">
                         View plans
                       </a>
                     </div>
                   )}
-                  <form onSubmit={(e) => { e.preventDefault(); void sendMessage(input); }} className="relative flex items-center bg-white/45 dark:bg-neutral-900/35 border border-white/35 dark:border-white/5 rounded-full px-4 py-1.5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.2),0_4px_16px_rgba(0,0,0,0.02)] backdrop-blur-xl focus-within:bg-white/65 dark:focus-within:bg-neutral-900/50 focus-within:border-white/50 dark:focus-within:border-[#0071e3]/30 transition-all duration-200">
+                  <form onSubmit={(e) => { e.preventDefault(); void sendMessage(input); }} className="relative flex items-center bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full px-4 py-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.02)] focus-within:bg-white dark:focus-within:bg-neutral-950 focus-within:border-primary/40 dark:focus-within:border-primary/30 transition-all duration-200">
                     <input
                       type="text"
                       value={input}
@@ -239,7 +246,7 @@ export function ChatSection() {
                         disabled={!input.trim() || isTyping || limitReached}
                         className={`h-8 w-8 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 shadow-xs ${
                           input.trim() 
-                            ? "bg-[#0071e3] text-white hover:scale-105" 
+                            ? "bg-primary text-white hover:scale-105" 
                             : "bg-neutral-200/50 dark:bg-neutral-800/50 text-neutral-400 dark:text-neutral-500 opacity-50 cursor-not-allowed"
                         }`}
                       >

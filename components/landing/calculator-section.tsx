@@ -108,7 +108,7 @@ export function CalculatorSection() {
   const dosePercent = Math.min(100, Math.max(0, ((doseMcg - 50) / (10000 - 50)) * 100));
 
   const trackBg = (percent: number) =>
-    `linear-gradient(to right, #0071e3 0%, #0071e3 ${percent}%, rgba(120, 120, 128, 0.25) ${percent}%, rgba(120, 120, 128, 0.25) 100%)`;
+    `linear-gradient(to right, var(--primary) 0%, var(--primary) ${percent}%, rgba(120, 120, 128, 0.25) ${percent}%, rgba(120, 120, 128, 0.25) 100%)`;
 
   return (
     <section id="calculator" ref={ref} className="landing-section relative py-24 lg:py-32 overflow-hidden border-t border-border/40">
@@ -141,7 +141,7 @@ export function CalculatorSection() {
               <button
                 type="button"
                 onClick={() => applyPreset(preset)}
-                className="h-8 px-4 flex items-center justify-center rounded-full text-xs font-mono border border-white/30 dark:border-white/5 bg-white/20 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:border-primary/45 dark:hover:border-primary/45 hover:bg-[#0071e3]/10 dark:hover:bg-[#0071e3]/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all cursor-pointer"
+                className="h-8 px-4 flex items-center justify-center rounded-full text-xs font-mono border border-white/30 dark:border-white/5 bg-white/20 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:border-primary/45 dark:hover:border-primary/45 hover:bg-primary/10 dark:hover:bg-primary/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all cursor-pointer"
               >
                 {preset.name}
               </button>
@@ -150,7 +150,7 @@ export function CalculatorSection() {
           <button
             type="button"
             onClick={resetCalculator}
-            className="h-8 w-8 flex items-center justify-center rounded-full border border-white/30 dark:border-white/5 bg-white/20 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:border-primary/45 dark:hover:border-primary/45 hover:bg-[#0071e3]/10 dark:hover:bg-[#0071e3]/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all ml-auto cursor-pointer"
+            className="h-8 w-8 flex items-center justify-center rounded-full border border-white/30 dark:border-white/5 bg-white/20 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:border-primary/45 dark:hover:border-primary/45 hover:bg-primary/10 dark:hover:bg-primary/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] transition-all ml-auto cursor-pointer"
             title="Reset"
           >
             <RotateCcw className="w-3.5 h-3.5" />

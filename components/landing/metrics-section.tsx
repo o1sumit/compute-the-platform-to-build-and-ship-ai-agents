@@ -194,7 +194,7 @@ function DotGraph({
 
         ctx.beginPath();
         ctx.arc(x, dotY, r, 0, Math.PI * 2);
-        ctx.fillStyle = color === "green"
+        ctx.fillStyle = color === "coral"
           ? `rgba(236, 168, 214, ${alpha})`
           : `rgba(255, 255, 255, ${alpha})`;
         ctx.fill();
@@ -247,8 +247,8 @@ export function MetricsSection() {
         <div className="grid lg:grid-cols-12 gap-8 mb-20 lg:mb-32">
           <div className="lg:col-span-8 lg:col-start-1">
             <div className="flex items-center gap-4 mb-6">
-              <span className="flex items-center gap-2 px-3 py-1 bg-[#eca8d6]/10 text-[#eca8d6] text-xs font-mono">
-                <span className="w-2 h-2 rounded-full bg-[#eca8d6] animate-pulse" />
+              <span className="flex items-center gap-2 px-3 py-1 bg-[var(--pop-coral)]/10 text-[var(--pop-coral)] text-xs font-mono">
+                <span className="w-2 h-2 rounded-full bg-[var(--pop-coral)] animate-pulse" />
                 LIVE
               </span>
               <span className="text-sm font-mono text-muted-foreground">
@@ -297,7 +297,7 @@ export function MetricsSection() {
                 <div className="text-sm text-muted-foreground font-mono mb-2">{metric.sublabel}</div>
                 <div className="text-base text-foreground mb-3">{metric.label}</div>
                 <DotGraph
-                  color={index === 0 ? "green" : "white"}
+                  color={index === 0 ? "coral" : "white"}
                   height={24}
                   freq1={index === 0 ? 0.45 : 0.22}
                   freq2={index === 0 ? 0.18 : 0.07}
