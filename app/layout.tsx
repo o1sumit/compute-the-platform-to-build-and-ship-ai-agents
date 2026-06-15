@@ -26,18 +26,40 @@ export const metadata: Metadata = {
   title: siteMeta.title,
   description: siteMeta.description,
   keywords: siteMeta.keywords,
+  alternates: {
+    canonical: siteMeta.url,
+  },
   openGraph: {
     title: siteMeta.title,
     description: siteMeta.description,
     url: siteMeta.url,
     type: 'website',
-    images: [{ url: siteMeta.ogImage }],
+    siteName: 'Peplocked',
+    images: [
+      {
+        url: siteMeta.ogImage,
+        width: 1200,
+        height: 630,
+        alt: 'Peplocked — AI Peptide Protocols for Men\'s Performance',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteMeta.title,
     description: siteMeta.description,
     images: [siteMeta.ogImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

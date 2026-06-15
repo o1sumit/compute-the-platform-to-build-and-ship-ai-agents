@@ -17,31 +17,92 @@ import { RealTestimonialsSection } from "@/components/landing/real-testimonials"
 import { FaqSection } from "@/components/landing/faq-section";
 import { CtaSection } from "@/components/landing/cta-section";
 import { FooterSection } from "@/components/landing/footer-section";
+import { faqItems, siteMeta, pricingPlans } from "@/lib/peplocked-content";
+
+const jsonLdWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Peplocked",
+  "url": siteMeta.url,
+  "description": siteMeta.description,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteMeta.url}?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const jsonLdSoftware = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Peplocked",
+  "url": siteMeta.url,
+  "description": siteMeta.description,
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "offers": pricingPlans.map((plan) => ({
+    "@type": "Offer",
+    "name": plan.name,
+    "price": plan.price.monthly.toString(),
+    "priceCurrency": "USD",
+    "description": plan.description,
+  })),
+};
+
+const jsonLdFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer,
+    },
+  })),
+};
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
-      <Navigation />
-      <HeroSection />
-      <div className="landing-surface relative">
-        <ChatSection />
-        <FeaturesSection />
-        <CalculatorSection />
-        <ProblemSection />
-        <HowItWorksSection />
-        <TestimonialsSection />
-        <IntegrationsSection />
-        <MetricsSection />
-        <InfrastructureSection />
-        <SecuritySection />
-        <DevelopersSection />
-        <ComparisonSection />
-        <PricingSection />
-        <RealTestimonialsSection />
-        <FaqSection />
-        <CtaSection />
-      </div>
-      <FooterSection />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSoftware) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
+      />
+      <main className="relative min-h-screen">
+        <Navigation />
+        <HeroSection />
+        <div className="landing-surface relative">
+          <ChatSection />
+          <FeaturesSection />
+          <CalculatorSection />
+          <ProblemSection />
+          <HowItWorksSection />
+          <TestimonialsSection />
+          <IntegrationsSection />
+          <MetricsSection />
+          <InfrastructureSection />
+          <SecuritySection />
+          <DevelopersSection />
+          <ComparisonSection />
+          <PricingSection />
+          <RealTestimonialsSection />
+          <FaqSection />
+          <CtaSection />
+        </div>
+        <FooterSection />
+      </main>
+    </>
   );
 }
